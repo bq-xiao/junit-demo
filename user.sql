@@ -1,0 +1,9 @@
+CREATE DATABASE `demo` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `age` int(11) NOT NULL DEFAULT '0',
+  `address` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
