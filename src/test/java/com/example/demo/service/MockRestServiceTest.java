@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,5 +40,15 @@ public class MockRestServiceTest {
     public void request3() {
         Mockito.when(restTemplate.getForObject(Mockito.anyString(), Mockito.any())).thenThrow(RuntimeException.class);
         restService.request();
+    }
+
+    @Test
+    public void request4() {
+        Mockito.when(restTemplate.getForObject(Mockito.anyString(), Mockito.any())).thenThrow(new RestClientException("test"));
+        try {
+            restService.request();
+        } catch (RuntimeException e) {
+            assertEquals("test", e.getMessage());
+        }
     }
 }
