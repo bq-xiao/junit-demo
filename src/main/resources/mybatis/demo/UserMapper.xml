@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+
+    <resultMap type="com.example.demo.domain.User" id="user">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.demo.domain.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(
+        <if test="id != null and id != 0">id,</if>
+        <if test="name != null and name != ''">name,</if>
+        <if test="age != null and age != 0">age,</if>
+        <if test="address != null and address != ''">address</if>
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="name != null and name != ''">#{name},</if>
+        <if test="age != null and age != 0">#{age},</if>
+        <if test="address != null and address != ''">#{address}</if>
+        )
+    </insert>
+
+    <update id="update" parameterType="com.example.demo.domain.User">
+        update user
+        <set>
+            <if test="id != null and id != 0">dept_id = #{deptId},</if>
+            <if test="name != null and name != ''">user_name = #{userName},</if>
+            <if test="age != null and age != 0">age = #{age},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="select" parameterType="integer" resultMap="user">
+        select * from user
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        delete from sys_user where user_id = #{userId}
+    </delete>
+
+</mapper>
